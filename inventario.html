@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sistema de Inventario</title>
+</head>
+<body>
+  <h1>Sistema de Inventario</h1>
+
+  <h2>Bodega</h2>
+  <label for="product-input">Producto:</label>
+  <input type="text" id="product-input" placeholder="Ingrese el producto">
+  <label for="quantity-input">Cantidad:</label>
+  <input type="number" id="quantity-input" placeholder="Ingrese la cantidad">
+  <label for="supplier-input">Proveedor:</label>
+  <input type="text" id="supplier-input" placeholder="Ingrese el proveedor">
+  <button onclick="agregarProducto()">Agregar</button>
+
+  <h2>Estantes</h2>
+  <ul id="shelf-list"></ul>
+
+  <script>
+    // Variable para almacenar los productos en el estante
+    var estantes = [];
+
+    function agregarProducto() {
+      var producto = document.getElementById('product-input').value;
+      var cantidad = parseInt(document.getElementById('quantity-input').value);
+      var proveedor = document.getElementById('supplier-input').value;
+
+      // Verificar si se ingresó un producto, una cantidad y un proveedor válidos
+      if (producto && cantidad > 0 && proveedor) {
+        // Agregar el producto al estante
+        estantes.push({ producto: producto, cantidad: cantidad, proveedor: proveedor });
+        actualizarEstantes();
+        limpiarCampos();
+      }
+    }
+
+    function actualizarEstantes() {
+      var shelfList = document.getElementById('shelf-list');
+      // Limpiar la lista de estantes antes de actualizarla
+      shelfList.innerHTML = '';
+
+      // Recorrer los productos en el estante y mostrarlos en la lista
+      for (var i = 0; i < estantes.length; i++) {
+        var item = document.createElement('li');
+        item.textContent = estantes[i].producto + ' - Cantidad: ' + estantes[i].cantidad + ' - Proveedor: ' + estantes[i].proveedor;
+
+        // Botón para eliminar el producto
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.onclick = (function(index) {
+          return function() {
+            eliminarProducto(index);
+          };
+        })(i);
+
+        // Botón para modificar el producto
+        var editButton = document.createElement('button');
+        editButton.textContent = 'Modificar';
+        editButton.onclick = (function(index) {
+          return function() {
+            modificarProducto(index);
+          };
+        })(i);
+
+        item.appendChild(deleteButton);
+        item.appendChild(editButton);
+
+        shelfList.appendChild(item);
+      }
+    }
+
+    function eliminarProducto(index) {
+      estantes.splice(index, 1); // Eliminar el producto del estante
+      actualizarEstantes();
+    }
+
+    function modificarProducto(index) {
+      var producto = prompt('Ingrese el nuevo nombre del producto');
+      var cantidad = parseInt(prompt('Ingrese la nueva cantidad'));
+      var proveedor = prompt('Ingrese el nuevo proveedor');
+
+      // Verificar si se ingresó un producto, una cantidad y un proveedor válidos
+      if (producto && cantidad > 0 && proveedor) {
+        // Modificar el producto en el estante
+        estantes[index].producto = producto;
+        estantes[index].cantidad = cantidad;
+        estantes[index].proveedor = proveedor;
+        actualizarEstantes();
+      }
+    }
+
+    function limpiarCampos() {
+      document.getElementById('product-input').value = '';
+      document.getElementById('quantity-input').value = '';
+      document.getElementById('supplier-input').value = '';
+    }
+  </script>
+</body>
+</html>
