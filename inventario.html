@@ -10,8 +10,10 @@
   <h1>Sistema de Inventario</h1>
 
   <h2>Bodega</h2>
+  <label for="code-input">Código:</label>
+  <input type="text" id="code-input" placeholder="Ingrese el código del producto">
   <label for="product-input">Producto:</label>
-  <input type="text" id="product-input" placeholder="Ingrese el producto">
+  <input type="text" id="product-input" placeholder="Ingrese el nombre del producto">
   <label for="quantity-input">Cantidad:</label>
   <input type="number" id="quantity-input" placeholder="Ingrese la cantidad">
   <label for="price-input">Precio:</label>
@@ -26,14 +28,15 @@
     var estantes = [];
 
     function agregarProducto() {
+      var codigo = document.getElementById('code-input').value;
       var producto = document.getElementById('product-input').value;
       var cantidad = parseInt(document.getElementById('quantity-input').value);
       var precio = parseFloat(document.getElementById('price-input').value);
 
-      // Verificar si se ingresó un producto, una cantidad y un precio válidos
-      if (producto && cantidad > 0 && precio > 0) {
+      // Verificar si se ingresó un código, un producto, una cantidad y un precio válidos
+      if (codigo && producto && cantidad > 0 && precio > 0) {
         // Agregar el producto al estante
-        estantes.push({ producto: producto, cantidad: cantidad, precio: precio });
+        estantes.push({ codigo: codigo, producto: producto, cantidad: cantidad, precio: precio });
         actualizarEstantes();
         limpiarCampos();
       }
@@ -47,7 +50,7 @@
       // Recorrer los productos en el estante y mostrarlos en la lista
       for (var i = 0; i < estantes.length; i++) {
         var item = document.createElement('li');
-        item.textContent = estantes[i].producto + ' - Cantidad: ' + estantes[i].cantidad + ' - Precio: ' + estantes[i].precio;
+        item.textContent = 'Código: ' + estantes[i].codigo + ' - Producto: ' + estantes[i].producto + ' - Cantidad: ' + estantes[i].cantidad + ' - Precio: ' + estantes[i].precio;
 
         // Botón para eliminar el producto
         var deleteButton = document.createElement('button');
@@ -80,13 +83,15 @@
     }
 
     function modificarProducto(index) {
+      var codigo = prompt('Ingrese el nuevo código del producto');
       var producto = prompt('Ingrese el nuevo nombre del producto');
       var cantidad = parseInt(prompt('Ingrese la nueva cantidad'));
       var precio = parseFloat(prompt('Ingrese el nuevo precio'));
 
-      // Verificar si se ingresó un producto, una cantidad y un precio válidos
-      if (producto && cantidad > 0 && precio > 0) {
+      // Verificar si se ingresó un código, un producto, una cantidad y un precio válidos
+      if (codigo && producto && cantidad > 0 && precio > 0) {
         // Modificar el producto en el estante
+        estantes[index].codigo = codigo;
         estantes[index].producto = producto;
         estantes[index].cantidad = cantidad;
         estantes[index].precio = precio;
@@ -95,12 +100,13 @@
     }
 
     function limpiarCampos() {
+      document.getElementById('code-input').value = '';
       document.getElementById('product-input').value = '';
       document.getElementById('quantity-input').value = '';
       document.getElementById('price-input').value = '';
     }
   </script>
-  <button onclick="window.location.href='menu.html'">Volver al menu prinmcipal</button>
 </body>
+<button onclick="window.location.href='menu.html'">Volver al menu prinmcipal</button>
 </html>
 
