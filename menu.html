@@ -4,15 +4,74 @@
     <link rel="stylesheet" type="text/css" href="estilos.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> FERRETERIA TOAPANTA </title>
+  <title>MENU PRINCIPAL</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header {
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    .header .logo {
+      font-size: 20px;
+      margin-right: auto;
+    }
+    
+    .menu {
+      text-align: center;
+    }
+    
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .menu ul li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    
+    .menu ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .company-info {
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-  <h1> PERFIL DE USUARIO </h1>
+  <div class="header">
+    <div class="logo">
+      <i class="fas fa-user-shield"></i> Administrador
+    </div>
+    <div class="company-name">
+      FERRETERIA TOAPANTA
+    </div>
+  </div>
 
-  <ul>
-    <li><a href="registro.html"> Registro</a></li>
-    <li><a href="inventario.html">El Inventario</a></li>
-    <li><a href="ordenes.html">Ordenes de Trabajo</a></li>
-  </ul>
+  <div class="menu">
+    <ul>
+      <li><a href="registro.html">Página 1</a></li>
+      <li><a href="inventario.html">Página 2</a></li>
+      <li><a href="ordenes.html">Página 3</a></li>
+    </ul>
+  </div>
+
+  <div class="company-info">
+    <h2>FERRETERIA TOAPANTA</h2>
+    <p>La ferreteria de tu confianza</p>
+  </div>
 </body>
 </html>
