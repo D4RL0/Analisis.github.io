@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="estilos.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MENU PRINCIPAL</title>
+  <title> MENU PRINCIPAL </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
     body {
@@ -49,6 +49,15 @@
       text-align: center;
       margin-top: 50px;
     }
+    
+    .logout-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -56,22 +65,26 @@
     <div class="logo">
       <i class="fas fa-user-shield"></i> Administrador
     </div>
-    <div class="company-name">
-      FERRETERIA TOAPANTA
-    </div>
+    <button class="logout-btn" onclick="logout()">Salir</button>
   </div>
 
   <div class="menu">
     <ul>
-      <li><a href="registro.html">REGISTRO</a></li>
-      <li><a href="inventario.html">INVENTRARIO</a></li>
-      <li><a href="ordenes.html">ORDENES.T</a></li>
+      <li><a href="registro.html"> REGISTRO</a></li>
+      <li><a href="inventario.html"> INVENTARIO</a></li>
+      <li><a href="ordenes.html"> ORDENES.T</a></li>
     </ul>
   </div>
 
   <div class="company-info">
     <h2>FERRETERIA TOAPANTA</h2>
-    <p>La ferreteria de tu confianza</p>
+    <p>Pequeña información de la empresa...</p>
   </div>
+
+  <script>
+    function logout() {
+      window.location.href = "loging.html";
+    }
+  </script>
 </body>
 </html>
