@@ -21,6 +21,9 @@
   <button onclick="agregarProducto()">Agregar</button>
 
   <h2>Estantes</h2>
+  <label for="search-input">Buscar por código:</label>
+  <input type="text" id="search-input" placeholder="Ingrese el código a buscar">
+  <button onclick="buscarProducto()">Buscar</button>
   <ul id="shelf-list"></ul>
 
   <script>
@@ -77,6 +80,29 @@
       }
     }
 
+    function buscarProducto() {
+      var searchCode = document.getElementById('search-input').value;
+      var foundProducts = [];
+
+      // Recorrer los productos en el estante y buscar por código
+      for (var i = 0; i < estantes.length; i++) {
+        if (estantes[i].codigo === searchCode) {
+          foundProducts.push(estantes[i]);
+        }
+      }
+
+      // Mostrar los productos encontrados en la lista
+      var resultDisplay = document.getElementById('shelf-list');
+      resultDisplay.innerHTML = '';
+
+      for (var j = 0; j < foundProducts.length; j++) {
+        var item = document.createElement('li');
+        item.textContent = 'Código: ' + foundProducts[j].codigo + ' - Producto: ' + foundProducts[j].producto + ' - Cantidad: ' + foundProducts[j].cantidad + ' - Precio: ' + foundProducts[j].precio;
+
+        resultDisplay.appendChild(item);
+      }
+    }
+
     function eliminarProducto(index) {
       estantes.splice(index, 1); // Eliminar el producto del estante
       actualizarEstantes();
@@ -104,9 +130,10 @@
       document.getElementById('product-input').value = '';
       document.getElementById('quantity-input').value = '';
       document.getElementById('price-input').value = '';
+      document.getElementById('search-input').value = '';
     }
   </script>
+  <button onclick="window.location.href='menu.html'">Volver al menu prinmcipal</button>
 </body>
-<button onclick="window.location.href='menu.html'">Volver al menu prinmcipal</button>
 </html>
 
