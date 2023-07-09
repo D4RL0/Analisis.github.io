@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="estilos.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Empleados y Proveedores</title>
   <title>Sistema de Inventario</title>
 </head>
 <body>
@@ -73,8 +74,8 @@
           };
         })(i);
 
-        item.appendChild(deleteButton);
         item.appendChild(editButton);
+        item.appendChild(deleteButton);
 
         shelfList.appendChild(item);
       }
@@ -99,6 +100,27 @@
         var item = document.createElement('li');
         item.textContent = 'Código: ' + foundProducts[j].codigo + ' - Producto: ' + foundProducts[j].producto + ' - Cantidad: ' + foundProducts[j].cantidad + ' - Precio: ' + foundProducts[j].precio;
 
+        // Botón para eliminar el producto encontrado
+        var deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.onclick = (function(product) {
+          return function() {
+            eliminarProductoEncontrado(product);
+          };
+        })(foundProducts[j]);
+
+        // Botón para modificar el producto encontrado
+        var editButton = document.createElement('button');
+        editButton.textContent = 'Modificar';
+        editButton.onclick = (function(product) {
+          return function() {
+            modificarProductoEncontrado(product);
+          };
+        })(foundProducts[j]);
+
+        item.appendChild(editButton);
+        item.appendChild(deleteButton);
+
         resultDisplay.appendChild(item);
       }
     }
@@ -106,6 +128,12 @@
     function eliminarProducto(index) {
       estantes.splice(index, 1); // Eliminar el producto del estante
       actualizarEstantes();
+    }
+
+    function eliminarProductoEncontrado(product) {
+      var index = estantes.indexOf(product);
+      estantes.splice(index, 1); // Eliminar el producto del estante
+      buscarProducto();
     }
 
     function modificarProducto(index) {
@@ -125,6 +153,23 @@
       }
     }
 
+    function modificarProductoEncontrado(product) {
+      var codigo = prompt('Ingrese el nuevo código del producto', product.codigo);
+      var producto = prompt('Ingrese el nuevo nombre del producto', product.producto);
+      var cantidad = parseInt(prompt('Ingrese la nueva cantidad', product.cantidad));
+      var precio = parseFloat(prompt('Ingrese el nuevo precio', product.precio));
+
+      // Verificar si se ingresó un código, un producto, una cantidad y un precio válidos
+      if (codigo && producto && cantidad > 0 && precio > 0) {
+        // Modificar el producto en el estante
+        product.codigo = codigo;
+        product.producto = producto;
+        product.cantidad = cantidad;
+        product.precio = precio;
+        buscarProducto();
+      }
+    }
+
     function limpiarCampos() {
       document.getElementById('code-input').value = '';
       document.getElementById('product-input').value = '';
@@ -136,4 +181,5 @@
   <button onclick="window.location.href='menu.html'">Volver al menu prinmcipal</button>
 </body>
 </html>
+
 
