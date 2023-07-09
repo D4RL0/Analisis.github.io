@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Empleados y Proveedores</title>
+    <script>
+        // Arrays para almacenar empleados y proveedores
+        var empleados = [];
+        var proveedores = [];
+
+        // Función para agregar un empleado
+        function agregarEmpleado() {
+            var nombre = document.getElementById("nombreEmpleado").value;
+            var identidad = document.getElementById("identidadEmpleado").value;
+            var direccion = document.getElementById("direccionEmpleado").value;
+            var telefono = document.getElementById("telefonoEmpleado").value;
+            var email = document.getElementById("emailEmpleado").value;
+
+            // Validar campos obligatorios
+            if (nombre === "" || identidad === "") {
+                alert("El nombre y la identidad del empleado son obligatorios.");
+                return;
+            }
+
+            // Validar formato de identidad
+            if (!/^([0-9]{10})$/.test(identidad)) {
+                alert("El número de identidad debe tener 10 dígitos.");
+                return;
+            }
+
+            // Crear objeto empleado
+            var empleado = {
+                nombre: nombre,
+                identidad: identidad,
+                direccion: direccion,
+                telefono: telefono,
+                email: email
+            };
+
+            // Agregar empleado al array
+            empleados.push(empleado);
+
+            // Limpiar campos del formulario
+            document.getElementById("nombreEmpleado").value = "";
+            document.getElementById("identidadEmpleado").value = "";
+            document.getElementById("direccionEmpleado").value = "";
+            document.getElementById("telefonoEmpleado").value = "";
+            document.getElementById("emailEmpleado").value = "";
+
+            // Actualizar lista de empleados
+            actualizarListaEmpleados();
+        }
+
+        // Función para agregar un proveedor
+        function agregarProveedor() {
+            var nombre = document.getElementById("nombreProveedor").value;
+            var identidad = document.getElementById("identidadProveedor").value;
+            var direccion = document.getElementById("direccionProveedor").value;
+            var telefono = document.getElementById("telefonoProveedor").value;
+            var email = document.getElementById("emailProveedor").value;
+
+            // Validar campos obligatorios
+            if (nombre === "" || identidad === "") {
+                alert("El nombre y la identidad del proveedor son obligatorios.");
+                return;
+            }
+
+            // Validar formato de identidad
+            if (!/^([0-9]{10})$/.test(identidad)) {
+                alert("El número de identidad debe tener 10 dígitos.");
+                return;
+            }
+
+            // Crear objeto proveedor
+            var proveedor = {
+                nombre: nombre,
+                identidad: identidad,
+                direccion: direccion,
+                telefono: telefono,
+                email: email
+            };
+
+            // Agregar proveedor al array
+            proveedores.push(proveedor);
+
+            // Limpiar campos del formulario
+            document.getElementById("nombreProveedor").value = "";
+            document.getElementById("identidadProveedor").value = "";
+            document.getElementById("direccionProveedor").value = "";
+            document.getElementById("telefonoProveedor").value = "";
+            document.getElementById("emailProveedor").value = "";
+
+            // Actualizar lista de proveedores
+            actualizarListaProveedores();
+        }
+
+        // Función para eliminar un empleado
+        function eliminarEmpleado(index) {
+            empleados.splice(index, 1);
+            actualizarListaEmpleados();
+        }
+
+        // Función para eliminar un proveedor
+        function eliminarProveedor(index) {
+            proveedores.splice(index, 1);
+            actualizarListaProveedores();
+        }
+
+        // Función para actualizar la lista de empleados
+        function actualizarListaEmpleados() {
+            var listaEmpleados = document.getElementById("listaEmpleados");
+            listaEmpleados.innerHTML = "";
+
+            for (var i = 0; i < empleados.length; i++) {
+                var empleado = empleados[i];
+
+                var item = document.createElement("li");
+                item.innerHTML = empleado.nombre + " - " + empleado.identidad + " - " + empleado.direccion + " - " + empleado.telefono + " - " + empleado.email;
+
+                var eliminarBtn = document.createElement("button");
+                eliminarBtn.innerHTML = "Eliminar";
+                eliminarBtn.setAttribute("onclick", "eliminarEmpleado(" + i + ")");
+                item.appendChild(eliminarBtn);
+
+                listaEmpleados.appendChild(item);
+            }
+        }
+
+        // Función para actualizar la lista de proveedores
+        function actualizarListaProveedores() {
+            var listaProveedores = document.getElementById("listaProveedores");
+            listaProveedores.innerHTML = "";
+
+            for (var i = 0; i < proveedores.length; i++) {
+                var proveedor = proveedores[i];
+
+                var item = document.createElement("li");
+                item.innerHTML = proveedor.nombre + " - " + proveedor.identidad + " - " + proveedor.direccion + " - " + proveedor.telefono + " - " + proveedor.email;
+
+                var eliminarBtn = document.createElement("button");
+                eliminarBtn.innerHTML = "Eliminar";
+                eliminarBtn.setAttribute("onclick", "eliminarProveedor(" + i + ")");
+                item.appendChild(eliminarBtn);
+
+                listaProveedores.appendChild(item);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Sistema de Empleados y Proveedores</h1>
+
+    <h2>Empleados</h2>
+    <form>
+        <label for="nombreEmpleado">Nombre:</label>
+        <input type="text" id="nombreEmpleado"><br>
+
+        <label for="identidadEmpleado">Identidad:</label>
+        <input type="text" id="identidadEmpleado" maxlength="10"><br>
+
+        <label for="direccionEmpleado">Dirección:</label>
+        <input type="text" id="direccionEmpleado"><br>
+
+        <label for="telefonoEmpleado">Teléfono:</label>
+        <input type="text" id="telefonoEmpleado"><br>
+
+        <label for="emailEmpleado">Email:</label>
+        <input type="text" id="emailEmpleado"><br>
+
+        <input type="button" value="Agregar Empleado" onclick="agregarEmpleado()">
+    </form>
+
+    <h3>Lista de Empleados</h3>
+    <ul id="listaEmpleados"></ul>
+
+    <h2>Proveedores</h2>
+    <form>
+        <label for="nombreProveedor">Nombre:</label>
+        <input type="text" id="nombreProveedor"><br>
+
+        <label for="identidadProveedor">Identidad:</label>
+        <input type="text" id="identidadProveedor" maxlength="10"><br>
+
+        <label for="direccionProveedor">Dirección:</label>
+        <input type="text" id="direccionProveedor"><br>
+
+        <label for="telefonoProveedor">Teléfono:</label>
+        <input type="text" id="telefonoProveedor"><br>
+
+        <label for="emailProveedor">Email:</label>
+        <input type="text" id="emailProveedor"><br>
+
+        <input type="button" value="Agregar Proveedor" onclick="agregarProveedor()">
+    </form>
+
+    <h3>Lista de Proveedores</h3>
+    <ul id="listaProveedores"></ul>
+</body>
+<button onclick="window.location.href='menu.html'">Volver al menu prinmcipal</button>
+</html>
